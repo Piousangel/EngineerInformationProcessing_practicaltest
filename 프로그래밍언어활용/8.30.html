@@ -9,3 +9,34 @@ DDL의 종류 create schema, create domain, ceate table, create view, create ind
 create schema 스키마명 AUTHORIZATION 사용자_id 
 소유권자의 사용자 id가 '홍길동'인 스키마 ' 대학교' 를 정의하는 sql문은 다음과 같다
 create schema 대학교 authorization 홍길동
+
+2.create domain create domain은 도메인을 정의하는 명령문이다
+임의의 속성에서 취할 수 있는 값의 범위가 sql에서 지원하는 전체 데이터 타입의 값이 아니고 일부분일 때, 사용자는 그 값의 범위를 도메인으로 정의할 수 있다. 정의 된 도메인 명은 일반적인 데이터 타입처럼 
+사용한다
+create domain 도메인명[AS] 데이터_타입
+        [DEFAULT 기본값]
+        [CONSTRATOMT 제약조건명 CHECK (범위값)];
+
+데이터 타입: SQL에서 지원하는 데이터 타입
+기본 값 : 데이터를 입력하지 않았을 때 자종으로 입력되는 값 
+sql에서 지원하는 기본 데이터 타입 (정수, 실수, 형식화된 숫자, 고정길이 문자, 가변길이 문자, 고정길이 비트열, 가변길이 비트열, 날짜, 시간)
+
+3.create table create table은 테이블을 정의하는 명령문이다
+create table에서 필요한 요소들
+-primary key : 기본키로 사용할 속성 또는 속성의 집합을 지정한다
+-unique : 대체키로 사용할 속성 또는 속성의 집합을 지정한 것 UNIQUE로 지정한 속성은 중복된 값을 가질 수 없다
+-foreign key ~ references~ : 참조할 다른 테이블과 그 테이블을 참조할 때 사용할 외래키 속성을 지정한다
+
+외래키가 지정되면 참조 무결성의 CASCADE법칙이 적용된다
+
+참조 무결성의 CASCADE 법칙이란? 참조 무결성 제약이 제약 설정된 기본 테이블의 어떤 데이터를 삭제할 경우, 그 데이터와 밀접하게 연관되어 있는 
+다른 테이블의 데이터들도 도미노처럼 자동으로 삭제됩니다. 이러한 법칙을 계단식, 연속성이라는 사전적 의미를 가진 CASCADE법칙이라고 합니다
+
+on delete 옵션 : 참조 테이블의 튜블이 삭제되었을 때 기본 테이블에 취애햐 할 사항을 지정한다. 옵션에는 no action, cascade, set
+null, set default 가 있다
+
+on update 옵션 : 참조 테이블에 변화가 있어도 기본 테이블에는 아무런 조취를 취하지 않는다.
+
+
+
+
