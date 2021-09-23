@@ -1,0 +1,104 @@
+From - where - group by - having - select - order by
+DML , DDL, ,DCL, TCL
+
+====SELECT======
+Select 중에서 distinct(중복 제거하여 하나로 집약시킴)
+distinct(deptno, mgr) ~= group by(deptno, mgr)
+
+AS(alias) select as생랻가능, 컬럼명에 띄어쓰기 "직원 번호"
+          from  as사용 불가 
+Concat + -> sql server , || -> oracle
+concat(,) 인수가 2개만 들어갈 수 있음
+================
+
+연산자 연산순위 1. NOT 2.AND 3.OR 1 -> 2 -> 3 순서로 계산
+SQL연산자 Between 1 and 2  -> 1 <= A <=2
+         A IN (1,2,3)  -> A=1 or A=2 or A= 3
+
+         Like  _ (언더바는 미지의 한 글자)
+               % (퍼센트는 0이상을 글자)
+ex like '_L%' -> 이름의 두번째 글자가 L인 사원 다고르는 것
+
+escape 와일드카드(_ , %) 를 문자로 취급      ename like 'A_A' => 'A@_A'
+                                        escape '@'
+
+Rownum (oracle), Top(SQL server)
+where rownum 무조건 1은 포함 where rownum <=3 ;
+select top(n) -> 상위 n개 , 컬럼명까지 쓰면 상위 n개를 컬럼에서 가져온다
+where rownum은 order by 전이므로 rownum으로 데이터 뽑고나서 orderby 실행함.
+
+========NULL==========
+NULL -> 부재, 모르는 값
+null + 2, null -4 는  = null이 나옴 (산술)
+where 절에 들어가면 "False" 값과 유사하게 나온다고 생각 알수없는 unknown값임 (비교)
+정렬에서의 의미는 oracle에서는 무한대값, SQL은 -무한대
+즉, 오름차순 정렬시 oracle에서는 맨 뒤에 , sql에서는 맨 앞에 나옴
+
+nvl, nvl2, isnull 널뛰기 
+nvl(값1, 값2) 값1이 널이면 값2 nvl2(값1,값2,값3) 값1이널이면값3도 널이면 값2
+Null if(값1,값2) -> 같이 놀자(널자?) 두개의 값이 같으면 null, 다르면 값 1
+coalesce -> 널아닌 첫번째 값
+ex( null, null, 2) -> 널아닌 첫번째값인 2
+
+=========정렬===========
+가장 마지막에 실행됨, 성능이 느려질 수 있음, null값과의 관계 (oracle, sql)
+컬럼 번호로 정렬 - 출력되는 컬럼의 수 보다 큰값은 들어갈 수 없다.
+인수 2개 정렬  - sal desc , ename asc sal 같으면 ename으로 오름차순정렬
+select ename order by sal 처럼 select에 없어도 오더바이로 정렬가능함
+
+========숫자함수==========
+Round(138,94)인수 반올림, 인수가 먼지
+Celi(oracle), Ceiling(sql)
+========문자열함수=========
+Upper, Lower LPad, Rpad, Ltrim, Rtrim, substr, nstr 등 복습
+========날짜함수==========
+TO_Char    Sysdate() oracle, GetDate() sql
+TO_Date     날짜데이터 + 100 하면 100일후 데이터가 날짜더하기로 들어감
+========CECODE/CASE=====
+Case만 잘보면됨
+Case when then
+Case when then
+else가 없는 경우 1,2번 케이스 불만족시 NULL이 출력된다.
+========집계함수===========
+null과의 관계 , 캡쳐해놓은 테이블 보면서 복습
+컬럼이 3개 있을 때 sum(A+B+C) 와 sum(A) + sum(B) + sum(C)구분하기
+========Groupby==========
+집약 기능이 있고, where 다음에 실행, 그룹수준의 정보를 바꾼다
+========JOIN=============
+natural join, using 중복된 컬럼이 하나로 출력된다
+중복된 컬럼이 제일 앞에 등장한다. using은 Table alias사용안됨
+left outer join => A left outer join
+                  = Acol1 = Bcol1(+) a레프트면 수식에선 오른쪽에 (+)붙는다
+Join from A,B,C gkaus A,B먼저 join -> C랑 다시 join                 
+=======서브쿼리============
+구글링 해서복습해보자 line view , scalar?
+In, any/some, all, exist(안에 아무거나도 있으면) true로 출력 없으면 False
+=======집합 연산자==========
+Union 두개 집합 합치는 것(중복된것 사라짐)
+intersect 교집합
+minus(oracle) except(sql) A - B 하면 A집합에서 B뺀것 나옴
+union all -> 중복데이터 존재, 정렬작없이 없고 대신 빠름 나머지 3개는 정렬있음 
+=======DDL================
+Commit, Rollback과 같이나오기 때문에 항상 연관지어서 생각하기
+Truncate(입주민 퇴거) vs DROP(건물철거)
+Truncate vs delete     drop, delete는 구조도 삭제 시킴
+ DDL          DML
+=======DML===========
+insert, update, delete /  merge
+TCL의 commit, rollback과 연관지어 나온다
+merge는 신유형
+=======제약조건========
+P.K , unique, Not null
+P.K = unqiue + not null 
+=======DCL===========
+ROLL특징, Grant, revoke
+=======View==========
+실무상 이점 독립성, 편리성, 보안성의 이점이 있다. 
+=======그룹함수========
+roll up, cube, groupingsets, grouping
+rollup(A,B) != rollup(A,B) , CUBE(A,B) == CUBE(A,B)
+=======TCL==========
+commit, rollback
+
+
+
