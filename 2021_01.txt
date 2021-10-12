@@ -23,6 +23,13 @@ XML로 기술됩니다. 웹 서비스의 구체적 내용이 기술되어 있으
 
 5. skiddp
 
+class arr: a = ["SS","KK","II"];
+
+for i in arr.a:
+-> 클래스 arr의 리스트 a[0] ~ a[끝배열]를 i에 차례대로 대입 
+하나 돌때마다 a클래스 string이 하나씩 str01에 대입되는 거임
+
+
 6. Select count(*) from 급여 where empno > 100 and sal >= 3000 or  empno = 200;
 -> 1
 
