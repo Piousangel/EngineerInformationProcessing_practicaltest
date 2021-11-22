@@ -65,3 +65,30 @@ helloData.setUsername("kim");
 helloData.setAge(20);
 String result = objectMapper.writeValueAsString();
 response.getWriter().wirte(result);
+
+
+@AfterEach -> clearStore() , @Test
+Assertions.assertThat().isEqualsTo()
+테스트의 순서가 보장이 안되기때문에 AtferEach clearStore꼭해줘야함
+
+동적으로 뿌려줄때 PrintWriter w = response.getWriter();
+Servlet에서
+w.write() ~
+for(Member member : members){
+        "+member.getId()+"
+        "+member.getUsername()+"
+        "+member.getAge()+"
+}
+이런식으로 포문 돌리면서 동적으로 뿌려줌
+JSP 템플릿 엔진을 사용하면 
+<%@ page contentType="text/html; charset=UTF-8" language="java" %> 로시작
+<%= ~로 자바코드찍으면 됨%> 이건 출력
+<% ~~  %> 이건 입력
+
+서블릿과 JSP한계
+하나의 서블릿, JSP만으로 비즈니스 로직과 뷰 렌더링까지 모두 처리하게 되면 많은 역할을 하게되고, 유지보수가 어렵다.
+HTML , java 코드가 섞여 지저분하고 복잡   -> MVC패턴으로 아예 영역을 나눔
+
+컨트롤러 모델 뷰 인데 컨트롤러에 비즈니스 로직을 둘수도 있지만 이렇게 되면 너무 많은 역할을 컨트롤러가
+하게 되므로 일반적으로 비즈니스 로직은 서비스라는 계층을 별로도 만들어 처리한다.
+컨트롤러는 비즈니스 로직이 있는 서비스를 호출하는 역할 담당
