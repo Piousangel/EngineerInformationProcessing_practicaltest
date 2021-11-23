@@ -92,3 +92,19 @@ HTML , java 코드가 섞여 지저분하고 복잡   -> MVC패턴으로 아예 
 컨트롤러 모델 뷰 인데 컨트롤러에 비즈니스 로직을 둘수도 있지만 이렇게 되면 너무 많은 역할을 컨트롤러가
 하게 되므로 일반적으로 비즈니스 로직은 서비스라는 계층을 별로도 만들어 처리한다.
 컨트롤러는 비즈니스 로직이 있는 서비스를 호출하는 역할 담당
+
+일딴은 request.setAttribute() - 컨트롤러, request.getAttribute() - 뷰 로 데이터 보관, 조회 할려고함
+컨트롤러 -> 뷰 request.getRequestDispatcher() 
+dispatcher.forward(request, dispatcher)  => 리다이렉트 개념아님
+action = "/save"  = 절대경로 , action = "save" = 상대경로
+
+WEB-INF내부 파일들은 외부에서 그냥 호출할 수 없고 controller를 거쳐 forward등으로 호출한다.
+
+%{member.username} = <%=(Member)request.getAttribute("member)).getUsername()%>
+지금은 거의 안쓰지만 JSTL가져와서 JSP좀더 깔끔하게 만들 수 있음
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<c: forEach var="item" items="${members}">
+
+하지만 포워드, Viewpath중복, 사용하지 않는 코드 , 공통처리가 어려움
+
+프론트 컨트롤러 패턴
