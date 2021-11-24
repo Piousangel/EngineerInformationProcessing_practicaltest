@@ -33,6 +33,19 @@ int get Priority()
 public static final int MAX_PRIORITY = 10;
 public static final int MIN_PRIORITY = 1;
 기본적으로 보통우선순위 5로 만들어지게 되있음
+우선순위가 높으면 많이 선점할 수 있지만 무조건 먼저 끝나거나 무조건적인건 아님.
+
+쓰레드 그룹
+모든 쓰레드는 반드시 하나의 쓰레드 그룹에 포함되어 있어야합니다.
+쓰레드그룹을 지정하지 않고 생성한 쓰레드는 메인 쓰레드 그룹
+ThreadGroup getThreadGroup() 자신이 속한 쓰레드 그룹 반환
+void uncaughtException(Thread t, Throwable e)
+-> 처리되지 않은 예외에 의해 쓰레드 그룹의 쓰레드가 실행이 종료되었을 때, JVM에 의해 이 메서드가 자동적으로 호출됨니다
+
+OS스케쥴러가 알아서...
+쓰레다는 따로 지정하지 않으면 메인쓰레드 그룹에 속하고 부모 그룹과 우선순위를 상속받음!
+
+데몬쓰레드
 
  
 
