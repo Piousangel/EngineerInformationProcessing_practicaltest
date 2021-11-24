@@ -137,4 +137,82 @@ HandlerAdapter
 HandlerMapping = BeanNameUrlHandlerMapping
 HandlerAdapter = SimpleControllerHandlerAdapter
 
-@RequestMapping!!!!!!!
+RequestMappingHandlerMapping , RequestMappingHandlerMapping
+@RequestMapping!!!!!!! 실무에서 99퍼센트 사용
+
+application.properties 에
+spring.mvc.view.prefix
+spring.mvc.view.suffix 넣어줌
+뷰 리졸버 - InternalResourceViewResolver가 프로퍼티의 preifx, suffix가져와서 등록함
+
+스프링 부트가 자동 등록하는 뷰 리졸버
+1 = BeanNameViewResolver : 빈 이름으로 뷰를 찾아서 반환
+2 = InternalResourceViewResolver : JSP를 처리할 수 있는 뷰를 
+
+RequestMappingHandlerMapping은 스프링 빈 중에서 @RequestMapping 또는 @Controller가
+클래스 레벨이 붙어있는 경우에 매핑 정보를 인식한다.
+
+@RequestParam 요청파라미터를 처리하는 어노테이션
+즉, @RequestParam("username") = request.getParameter("username");
+
+@RequestMapping(value = "/new-form" , method = RequestMethod.GET)
+-> method = RequestMethod.GET , RequestMethod.POST
+
+이게 개선된게 @GetMapping() , @PostMapping()
+
+로깅!!!!!
+실무에서는 System.out.println()을 쓰지않음
+로깅 라이브러리 사용
+스프링 부트 라이브러리안에 로깅라이브러리(spring-boot-starter-logging)이 함께 포함됨
+SLF4J Logback
+통합된 인터페이스로 제공하는 것 -> SLF4J
+실무에서는 스프링 부트가 기본적으로 제공하는 Logback을 대부분 사용함
+
+로그 선언
+private Logger log = LoggerFactory.getLogger(getClass());
+private static final Logger log = LoggerFactory.getLogger(Xxx.class)
+@Slf4j : 롬복 사용 가능
+
+로그 호출
+log.info("hello") = System.out.println("hello")
+시스템 콜솔로 직접 출력하는 것 보다 실무에서는 log.info()사용
+
+그냥 컨트롤러는 view로 인식하고 뷰네임 반환 하는데
+@RestController는 리턴값이 스트링이면 걍 스트링을 반환함
+이게 먼말이냐 HTTP 메세지 바디에 바로 입력한다는 말임
+
+aplication.properties에서
+logging.level.hellow.springmvc = 로깅 레벨 정함
+위험도? 
+log.trace();
+log.debug();
+log.info();
+log.warn();
+log.error(); 순서 로그레벨
+
+운영서버에 System.out.println()으로 다 남기면 어지럽긴하겠다
+개발서버에서는 debug부터
+운영서버는 info부터 한다고 합니당
+
+롬복에서
+@Slf4j 넣으면 private final Logger log = LoggerFactory.getLogger(getClass());
+없어도 로깅가능
+
+로그 사용시 장점
+- 쓰레드 정보, 클래스 이름 같은 부가 정보를 함께 볼 수 있고, 출력 모양을 조정할 수 있다
+- 로그 레벨에 따라 개발 서버에서는 모든 로그를 출력하고, 운영서버에서는 출력하지 않는 등
+  로그를 상황에 맞게 조절할 수 있다.
+- 시스템 아웃 콘솔에만 출력하는 것이 아니라, 파일이나 네트워크 등, 로그를 별도의 위치에
+  남길 수 있다. 특히 파일로 남길 때는 일별, 특정 용량에 따라 로그를 분할하는 것도 가능하다
+- 성능도 일반 System.out보다 좋다. 내부 버퍼링, 멀티 쓰레드 등등 그래서 실무에서는 꼭 로그를 사용해야 한다.
+
+PathVariable(경로변수 사용)
+ex) @GetMapping("/mapping/{userId}")
+public String mappingPath(@PathVariable("userId") String data){
+        ~~
+}
+
+@RequestMapping를 통해 리소스를 계층으로 식별하면 개발자들이 보기 좋다..
+URL하나로 묶어서 리케스트매핑에 넣기..
+
+클래스 위에 RestController 넣어도 되고 메서드 위에 @ResponseBody넣어도 messageBody에 넣어주는 역할을 함니당
