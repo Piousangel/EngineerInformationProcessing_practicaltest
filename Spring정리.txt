@@ -216,3 +216,56 @@ public String mappingPath(@PathVariable("userId") String data){
 URL하나로 묶어서 리케스트매핑에 넣기..
 
 클래스 위에 RestController 넣어도 되고 메서드 위에 @ResponseBody넣어도 messageBody에 넣어주는 역할을 함니당
+Integer 객체 null들어갈수있고 int 는 기본형 무조건 뭐라도들어가야...
+
+@data는 @Getter @Setter @ToString, @EqualsAndHashCode, @RequireArgsConstructor을 자동으로 만들어줌
+
+스프링MVC는 @ModelAttribute가 있으면 근데 생략 가능 
+HelloData 객체를 생성
+요청 파라미터의 이름으로 HelloData객체의 프로퍼티를 찾는다. 그리고 해당 프로퍼티의 setter를 호출해서
+파라미터의 값을 입력한다
+
+String, int, Integer 같은 단순 타입 = @RequestParam사용
+나머지 것들 @ModelAttribute사용 argumet resolver로 지정해둔 타입 외!
+
+프로퍼티 객체에 getUsername(), setUsername() 메서드가 있으면 이객체는 username이라는 프로퍼티를 가지고 있다
+username 프로퍼티의 값을 변경하면 setUsername()이 호출되고 조회하면 getUsername()이 호출됩니다.
+
+바인딩 오류 숫자가 들어가야 할 곳에 문자를 넣거나 그러면 BindException이 발생합니다
+바인딩 오류처리 공부 ㄱ ㄱ..
+
+HTTP message body의 데이터는 InputStream을 사용해서 직접 읽을 수 있습니다
+HttpEntity<String> HttpEntity
+String messageBody = httpEntity.getBody();
+log.info(:messageBody={}", messageBody);
+return new HttpEntity<>("ok");
+HttpEntity는 HTTP header, body 정보를 편리하게 조회
+메세지 바디 정보를 직접 조회가능
+요청 파라미터를 조회하는 기능과 관계없음
+HttpEntity는 응답에도 사용가능
+메세지 바디 정보 직접 반환
+헤더 정보 포함가능 view 조회는 X 
+HttpEntity를 상속받은 다음 객체들도 같은 기능을 제공한다
+RequestEntity
+HttpMethod, url정보가 추가, 요청에서 사용
+ResponseEntity HTTP상태코드 설정가능 응답에서 사용
+
+근데 어노테이션 또 사용해서 
+@RequestBody String messageBody로 끝낼수있음
+응답도 @ResponseBody로 끝..
+
+JSON!!!
+
+@RequestBody를 사용하면 HTTP메세지 컨버터가 HTTP메세지 바디의 내용을
+우리가 원하는 문자나 객체 등으로 변환해줍니다 contentType보고 json인거아는듯
+HTTP 메세지 컨버터는 문자 뿐만 아니라 JSON도 객체로 변환해줍니다!
+@RequestBody는 생략 불가
+요약
+@RequestBody 요청
+ JSON 요청 -> HTTP 메세지 컨버터 -> 객체
+
+@ResponseBody 응답
+ 객체 -> HTTP 메세지 컨버터 -> JSON응답
+
+ HTTP 응답 3가지
+ 정적리소스, 뷰 템플릿, HTTP메시지사용
