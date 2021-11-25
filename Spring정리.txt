@@ -269,3 +269,43 @@ HTTP 메세지 컨버터는 문자 뿐만 아니라 JSON도 객체로 변환해�
 
  HTTP 응답 3가지
  정적리소스, 뷰 템플릿, HTTP메시지사용
+
+ @RestController - @Controller , @ResponseBody 합쳐 사용가능
+
+ @ResponseBody사용원리
+
+ 웹브라우저 -> 내장톰캣 -> 스프링컨테이너내부컨트롤러가 @ResponseBody보고 HttpMessageConverter
+ 내부의 JsonConverter, StringConverter 에서 둘중 뭐로 내보낼지 결정
+ 기본 문자처리 : StringHttpMessageConverter
+ 기본 객체처리 : MappingJackson2HttpMessageConverter 동작
+ byte처리등 기타여러 HttpmessageConverter가 기본으로 등록되어있음
+ 즉, viewResolver 대신 HttpMessageConverter가 동작함.
+
+RequestMapping 핸들러 어댑터가 Argument Resolver에게 필요한 매개변수? 를 가져다 줄수 있는지 물어봄
+스프링은 약 30개가 넘는 HandlerMethodArgumentResolver를 제공한다.
+
+반환시 ReturnValueHandle을 통해 반환
+
+Dispatcher Servlet -> RequestMapping핸들러 어댑터 -> ArgumentResolver(Http메세지 컨버터 쓸수있는지 확인) @RequestBody, HttpEntity가있는지..
+->핸들러(컨트롤러)  -> ReturnValueHandler(HTTP 메세지 컨버터쓸수있는지 확인) -> RequestMapping핸들러 어댑터
+
+타임리프 사용선언
+<html xmlns:th="http"//www.thymeleaf.org">
+href="value1"을 th:href="value2"의 값으로 변경합니다.
+
+타임리프의 핵심은 th:xxx가 붙은 부분은 서버사이드에서 랜더링되고 기존의 것을 대체합니다
+th:xxx이 없으면 기존 html의 속성이 그대로 사용
+@{...} 타임리프는 URL링크를 사용하는경우 이걸 사용
+이것을 URL링크 표현식이라고 한다 URL링크 표현식을 사용하면 서블릿 컨텍스트를 자동으로 포함한다.
+${...} 이건 변수명
+
+리터럴 대체 |...|
+타임리프에서 문자와 표현식등은 분리되어있기 때문에 + 로 더해서 사용해야하는데
+리터럴 대체문법을 사용하면 더하기 없이 사용가능
+
+반복 출력 th:each ex) <tr th:each="item : ${itmes}">
+th:each사용하면 모델에 포함된 items컬렉션 데이터가 item변수에 하나씩 포함되고,
+반복문 안에서 item변수 사용가능
+변수표현식 아까 말했것처럼 ${...}
+
+내용변경 th:text 
