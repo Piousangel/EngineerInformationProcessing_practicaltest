@@ -29,7 +29,9 @@
 + ~~제품소프트웨어 패키징 0~1문제 인데 그냥 안볼꺼임~~
 + ~~인터페이스구현~~ 안볼꺼임
 
-1일 1커밋하면 시험기간까지 다함.
+1일 1커밋하면 시험기간까지 다함.<img width="805" alt="image" src="https://user-images.githubusercontent.com/55525574/143567216-b7f5b3bc-fbd1-49c1-8a24-6e051be39504.png">
+
 - 10/16 
 
 
+<img width="805" alt="스크린샷 2021-11-26 오후 7 22 51" src="https://user-images.githubusercontent.com/55525574/143567184-120d7e65-a5b2-49b2-9e38-476a482ff252.png">
