@@ -327,4 +327,9 @@ git merge 브랜치 이름 즉, 마스터로 체크아웃하고 git merge 브랜
 만약 충돌나면 필요한거 빼고 지워주고 다시 머지
 git log --grapgh --all --decorate 시각적으로 볼수있고
 merge 대신 rebase를 사용해서 정리가능 merge다 되었으면
-git branch -D를 사용해서 브랜치 삭제까지 git 오랜만에 복습....
+git branch -D를 사용해서 브랜치 삭제까지 git 오랜만에 복습....    .gitignore에 깃에 올릴필요없는 파일들 저장
+git fetch
+git pull origin master
+------------
+git branch -a 
+git checkout -b 로컬에 만들 브랜치 이름 orgin/가져올 오리진 브랜치 이름
