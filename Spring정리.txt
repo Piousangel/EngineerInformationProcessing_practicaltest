@@ -309,3 +309,50 @@ th:each사용하면 모델에 포함된 items컬렉션 데이터가 item변수�
 변수표현식 아까 말했것처럼 ${...}
 
 내용변경 th:text 
+해당 조건이 참이면 실행 th:if
+
+속성변경 th:action HTML form에서 action에 값이 없으면 현제 URL에 데이터를 전송합니다
+상품등록폼의URL과 실제 상품등록을 처리하는 URL을 똑같이 맞추고 HTTP메서드로 두 기능을 구분하면 댐
+
+복습!
+RequestParam을 사용하면 앞에 name으로 넘어온 것들을 다 받아서
+아이템 객체가 있으면 
+Item item = new Item();
+item.setItemName(itemName);
+item.setPrice(price);
+item.setQuantity(quntity);
+itemRepository.save(item);
+model.addAtrribute("item",item);
+다 작업해줘야하지만 
+@ModelAttribute("item")넣어주면 아이템 객체 만들어 주고 setter적용해서 다 셋시켜줌
+itemRepository.save(item); 해주면 됨
+모델어트리뷰트에 네임 속성을 넣어주면 모델에드어트리뷰트에 네임속성을 넣어주는 기능도함
+
+redirect:/...
+컨트롤러에 매핑된 @PathVariable의 값은 redirect에도 사용할 수 있다
+리다이렉트는 새로고침 문제를 해결하는 아주 좋은방법..
+
+HTML form전송은 PUT,PATCH를 지원하지 않는다. GET,POST만 사용가능
+PUT, PATCH는 HTTP API전송시에만 사용
+스프링에서 HTTP POST를 요청할 때 히든 필드를 통해서 PUT,PATCH 매핑을 사용할 수 는있지만
+HTTP요청상 POST요청임.
+
+PRG Post Redirect Get..!!
+
+RedirectAttributes를 사용해서 인코딩과 등등을 해결..
+
+@Repository
+        @PersistenceContext
+        private EnityManager em -> em.persist(~~);
+ -> commit되어 DB에 저장
+
+이름으로 조회
+public List<Member> findbyName(String name){
+        return em.createQuery("select m from Memeber where m.name =: name" , Memeber.class)
+                .setParameter("name", name)
+                .getResultList();
+}
+
+@ArgsConstructor 
+@NoArgsConstructor(access = AccessLevel.PROTECTED) 
+생성자를 프로텍티드로 만들어서 setter직접 이용못하고 예를들어 createorder등의 생성메서드를 이용해서 수정하게끔 
