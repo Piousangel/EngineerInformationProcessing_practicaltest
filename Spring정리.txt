@@ -345,7 +345,7 @@ RedirectAttributes를 사용해서 인코딩과 등등을 해결..
 @Repository
         @PersistenceContext
         private EnityManager em -> em.persist(~~);
- -> commit되어 DB에 저장
+ -> commit되어 영속성 컨텍스트에 저장 (1차 캐쉬) -> 그 이후 플러쉬 하면 commit되고 DB에 저장된다.
 
 이름으로 조회
 public List<Member> findbyName(String name){
