@@ -309,6 +309,7 @@ th:each사용하면 모델에 포함된 items컬렉션 데이터가 item변수�
 변수표현식 아까 말했것처럼 ${...}
 
 내용변경 th:text 
+
 해당 조건이 참이면 실행 th:if
 
 속성변경 th:action HTML form에서 action에 값이 없으면 현제 URL에 데이터를 전송합니다
@@ -356,3 +357,28 @@ public List<Member> findbyName(String name){
 @ArgsConstructor 
 @NoArgsConstructor(access = AccessLevel.PROTECTED) 
 생성자를 프로텍티드로 만들어서 setter직접 이용못하고 예를들어 createorder등의 생성메서드를 이용해서 수정하게끔 
+
+git init
+git config --
+git status 로 상태한번보고 업로드 후
+git add -A
+git commint -m "" 기초라서 협업할때는 좀더 테크닉컬한...
+git log
+git reset 일련변호 6자리 --hard
+git revert 일련번호 6자리 -- 복원가능
+git branch 브랜치 이름 필요한 작업 브랜치 쳐서 작업 진행
+git checkout 브랜치이름으로 브랜치로 넘어감
+git add -A
+git commit -m "" 하고 다시 master로
+git checkout master ~ 이제 머지를 통해 branch에서 작업한 내용 합쳐야지
+git merge 브랜치 이름 즉, 마스터로 체크아웃하고 git merge 브랜치 이름하면 합쳐짐
+만약 충돌나면 필요한거 빼고 지워주고 다시 머지
+git log --grapgh --all --decorate 시각적으로 볼수있고
+merge 대신 rebase를 사용해서 정리가능 merge다 되었으면
+git branch -D를 사용해서 브랜치 삭제까지 git 오랜만에 복습....    .gitignore에 깃에 올릴필요없는 파일들 저장
+git fetch
+git pull origin master
+------------
+git branch -a 
+git checkout -b 로컬에 만들 브랜치 이름 orgin/가져올 오리진 브랜치 이름
+
