@@ -402,3 +402,22 @@ AOP를 어디에 적용할꺼냐 범위를 지정해줄수 있는데
 그리고 if null 대신 옵셔널로 감싸기 까먹지 마세요..
 
 아니 진짜 비포 코로나 에프터 코로나가 아닙니다... 비포 클라우드 에프터 클라우드에요...
+
+API 설계할 때는 엔티티클래스의 엔티티를 파라미터로 받지말구 엔티티를 노출해서는 안됩니다.
+별도의 데이터트랜스 오브젝트를 사용!
+
+기존에 Member member를 매개변수로 받아서
+Long id = memberService.join(member);
+return new CreateMemberResponse(id);
+
+인데 이걸 별도의 메서드 CreateMemberRequest로 받고 
+메서드안에 맴버 객체를 생성해서 getName등으로 꺼내서 사용
+(매개변수에 CreateMemberRequest request){
+        Memeber member = new Member();
+        member.setName(Request.getName());
+        Long id = memberService.join(member);
+        return new CreateMemberResponse(id);
+}
+이런 별도의 DTO메서드를 만들어서 짜면 api 스펙이 바뀌지 않습니당
+또한 @NotEmpty등 이런것들이 member를 매개변수로 받는것보다 훨씬 범위지정하기도 쉽네여
+
