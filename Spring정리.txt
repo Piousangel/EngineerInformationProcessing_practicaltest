@@ -421,3 +421,41 @@ return new CreateMemberResponse(id);
 이런 별도의 DTO메서드를 만들어서 짜면 api 스펙이 바뀌지 않습니당
 또한 @NotEmpty등 이런것들이 member를 매개변수로 받는것보다 훨씬 범위지정하기도 쉽네여
 
+즉 엔티티 명을 바꾸거나 필드를 추가하거나 줄이거나 했을 때 나오는 사이드 이펙트가 측정이 안됌
+
+변경감지 복습
+@Transactional을 통해 트랜잭션이 시작되고 이때 jpa가 영속성 컨텍스트에서 id를 찾습니다
+처음 하면 없으니까 DB에서 꺼내와서 영속성 컨텍스트에 올리고 그걸 찾아옵니다
+영속상태의 id를 맴버 객체에 넣고 setName을 통해 set해주면 스프링 AOP가 동작하면서
+@Transactional 어노테이션을 통해서 트랜잭션 관련 AOP가 끝나는 시점에 
+트랜잭션 커밋이 됩니다 그때 JPA가 flush하고 영속성컨텍스트 커밋을 하고 DB커밋까지 합니다
+변경감지를 통해 update쿼리 날린다!!!..변경감지 ...
+
+엔티티클래스를 반환타입으로쓰거나 매개변수로 받거나 등 엔티티클래스를 직접 외부에 노출하면
+API스펙이 변해요.. 그래서 별도의 DTO를 사용하는것이죠 엔티티클래스 대신 DTO를 노출하자
+
+@GetMapping("/api/v2/members")
+public Result memberV2(){
+        List<Member> findMembers = memberService.findMembers();
+        List<MemberDto> collect = findMembers.stream()
+                .map(m -> new MemberDto(m.getName())
+                .collect(Collectors.toList());
+
+        return new Result(collect);
+}
+리스트를 DTO리스트로! 그리고 리스트가 컬랙션 타입이라 바로 리턴시키면
+JSON배열타입으로 나가버리기때문에 유연성이 떨어집니다 그래서 Result로 한번감싸서 내보내기..
+
+//DTO
+
+@Data
+@AllArgsConstructor
+static class Result<T>{ 
+        private T data;
+}
+
+@Data
+@AllArgsConstructor
+static class MemberDto{
+        private String name;
+}
