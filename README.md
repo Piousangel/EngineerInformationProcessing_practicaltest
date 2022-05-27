@@ -36,11 +36,24 @@ git commit -m "이슈 해결"
 git add *
 git commit -m "수정 및 벨리데이션 추가" --amend를 통해 커밋 메세지를 수정할 수 있습니다.
 
-git pull과 fetch의 차이점
-pull 과 fetch 의 차이점은 merge 작업을 하느냐 안하느냐로 나뉘어지며.
-pull 은 fetch + merge 작업이라고 생각하시면 됩니다.
-git reflog 명령을 통해 이전 버전으로 돌아갈 수있습니다
+- git pull과 fetch의 차이점
+- pull 과 fetch 의 차이점은 merge 작업을 하느냐 안하느냐로 나뉘어지며.
+- pull 은 fetch + merge 작업이라고 생각하시면 됩니다.
+- git reflog 명령을 통해 이전 버전으로 돌아갈 수있습니다
 
+
+
+![스크린샷 2022-05-27 오후 1 20 59](https://user-images.githubusercontent.com/55525574/170628478-95633afc-9334-4c37-9b74-a88201d89ab0.png)
 ex) git reset
+
+- 바로 이전 단계로 인덱스와 워킹트리를 버리고 리셋
+$git reset HEAD^ --hard
+
+- 바로 두번째 전 단계로 인덱스와 워킹트리를 버리고 리셋
+$git reset HEAD~2 --hard
+
+- 특정 리비전의 기록으로 인덱스는 버리고 워킹트리를 보존하여 리셋
+$git reset 991ee8c --mixed
+
 
 <img width="805" alt="스크린샷 2021-11-26 오후 7 22 51" src="https://user-images.githubusercontent.com/55525574/143567184-120d7e65-a5b2-49b2-9e38-476a482ff252.png">
